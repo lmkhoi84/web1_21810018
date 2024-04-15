@@ -89,4 +89,11 @@ h1 {
 /* products */
 .readmore{
     color: var(--web1-blue);
+    margin-top: -2px !important;
+}
+
+/* about us */
+#aboutus {
+    background-color: var(--web1-pink);
+
 }
