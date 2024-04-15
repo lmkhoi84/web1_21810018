@@ -91,81 +91,10 @@
         </header>
 
         <main>
-            <div id="content">
-                <!-- banner -->
-                <section class="container-fluid" id="banner">
-                    <div class="container text-white text-center">
-                        <!-- carousel -->
-                        <div id="banner-carousel" class="carousel slide" data-bs-ride="carousel">
-                            <ol class="carousel-indicators">
-                                <li
-                                    data-bs-target="#banner-carousel"
-                                    data-bs-slide-to="0"
-                                    class="active"
-                                    aria-current="true"
-                                    aria-label="First slide"
-                                ><span></span></li>
-                                <li
-                                    data-bs-target="#banner-carousel"
-                                    data-bs-slide-to="1"
-                                    aria-label="Second slide"
-                                ><span></span></li>
-                                <li
-                                    data-bs-target="#banner-carousel"
-                                    data-bs-slide-to="2"
-                                    aria-label="Third slide"
-                                ><span></span></li>
-                            </ol>
-                            <div class="carousel-inner" role="listbox">
-                                <div class="carousel-item active">
-                                    <h1>Web Development<br>for everyone</h1>
-                                    <a href="gallery.html" class="btn text-bold text-uppercase text-white rounded-4 px-4 mt-4">see more</a>
-                                </div>
-                                <div class="carousel-item">
-                                    <h1>21810018<br>Lê Minh Khôi</h1>
-                                </div>
-                                <div class="carousel-item">
-                                    <h1>Lập trình Web1<br>DTTX - HK1 - 2024</h1>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+            <section class="container py-5">
+                <h1>About Us</h1>
+            </section>
 
-                <!-- products -->
-                <section class="container" id="products">
-
-                </section>
-
-                <!-- about us -->
-                <section class="container-fluid" id='aboutus'>
-                    <div class="container">
-                        <div class="row py-5">
-                            <div class="col-lg-9 col-md-8 col-sm-12">
-                                <h1 class="text-white">About Us</h1>
-                                <div class="text-black-50">
-                                    <img class="float-start me-3" src="images/icon-about.png" alt="About Us">
-                                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolor at alias amet corrupti officiis, sed similique nulla velit perspiciatis magni totam. Hic quaerat, sapiente dicta dignissimos mollitia quos consequuntur reprehenderit?</p>
-                                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempora officia voluptatem tenetur ipsum laborum neque! <a href="about.html" class="btn btn-link readmore p-0">Read more</a></p>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-4 col-sm-12">
-                                <form action="#" method="post" id="formSignUp" class="border border-dark rounded-4 p-4 overflow-auto">
-                                    <h3 class="text-center text-white">Newsletter<br>Sign Up</h3>
-                                    <p class="text-black-50">Please, write an e-mail:</p>
-                                    <input class="form-control" type="email" name="email_signup" id="email_signup">
-                                    <button class="btn btn-dark float-end text-uppercase my-2 rounded-4 px-4" type="submit"><h4 class="my-0">Sign Up</h4></button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- news -->
-                <section class="container py-5" id="news">
-                    
-                </section>
-            </div>
         </main>
         <!-- footer -->
         <footer class="text-center container-fluid py-2">
@@ -265,55 +194,5 @@
             integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
             crossorigin="anonymous"
         ></script>
-        <!-- Handlebars -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js" integrity="sha512-E1dSFxg+wsfJ4HKjutk/WaCzK7S2wv1POn1RRPGh8ZK+ag9l244Vqxji3r6wgz9YBf6+vhQEYJZpSjqWFPg9gg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="js/21810018.js"></script>
-
-        <script id="products-template" type="text/x-handlebars-template">
-            <div class="row text-center py-5">
-                {{#each data}}
-                <div class="col col-lg-3 col-md-6 col-sm-12">
-                    <img src="{{imagepath}}" alt="{{name}}">
-                    <h2>{{name}}</h2>
-                    <p>{{summary}}</p>
-                    <a href="#" onclick="loadData('products/{{id}}','details-template','content')" class="btn btn-link readmore">Read more</a>
-                </div>
-                {{/each}}
-            </div>
-        </script>
-
-        <script id="news-template" type="text/x-handlebars-template">
-            <h1 class="text-back-10">News</h1>
-                <div class="row">
-                    {{#each data}}
-                    <div class="col-lg-4 col-md-4 col-sm-12">
-                        <div class="float-start me-3">
-                            <div class="date text-white text-center rounded-4 py-1"><h3>{{date}}</h3></div>
-                            <a href="#" onclick="loadData('news/{{id}}','details-template','content')" class="btn btn-link readmore ps-0">Read more</a>
-                        </div>
-                        <div>
-                            <h3>{{name}}</h3>
-                            <p>{{summary}}</p>
-                        </div>
-                    </div>
-                    {{/each}}
-                </div>
-        </script>
-
-        <script id="details-template" type="text/x-handlebars-template">
-            <section class="container-fluid" id="banner-small"></section>
-            {{#each data}}
-            <section class="container py-5">
-                <h1 class="pb-5">{{name}}</h1>
-                <div class="text-black-50">{{{ description }}}</div>
-            </section>
-            {{/each}}
-        </script>
-
-        
-        <script>
-            loadData('products','products-template','products');
-            loadData('news','news-template','news');
-        </script>
     </body>
 </html>
