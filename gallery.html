@@ -50,16 +50,16 @@
                     <div class="collapse navbar-collapse" id="menu-header">
                         <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link active" href="index.html" aria-current="page"
-                                    >Home
-                                    <span class="visually-hidden">(current)</span></a
-                                >
+                                <a class="nav-link" href="index.html">Home</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="about.html">About</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="gallery.html">Gallery</a>
+                                <a class="nav-link active" href="gallery.html" aria-current="page"
+                                    >Gallery
+                                    <span class="visually-hidden">(current)</span></a
+                                >
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="blogs.html">Blogs</a>
@@ -91,10 +91,19 @@
         </header>
 
         <main>
+            <section id="banner-small"></section>
             <section class="container py-5">
                 <h1>Gallery</h1>
-            </section>
-
+                <strong>Filter by category:</strong>
+                <div class="row" id="gallery-categories">
+                    
+                </div>
+                
+                <div class="row" id="gallery">
+                    
+                </div>
+                
+            </section>          
         </main>
         <!-- footer -->
         <footer class="text-center container-fluid py-2">
@@ -103,7 +112,7 @@
                 class="nav justify-content-center py-3" id="menu-footer"
             >
                 <li class="nav-item">
-                    <a class="nav-link active" href="index.html" aria-current="page"
+                    <a class="nav-link" href="index.html" aria-current="page"
                         >Home</a
                     >
                 </li>
@@ -111,7 +120,7 @@
                     <a class="nav-link" href="about.html">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="gallery.html">Gallery</a>
+                    <a class="nav-link active" href="gallery.html">Gallery</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="blogs.html">Blogs</a>
@@ -174,13 +183,6 @@
             </div>
         </div>
         
-        <!-- Optional: Place to the bottom of scripts -->
-        <script>
-            const myModal = new bootstrap.Modal(
-                document.getElementById("modalLogin"),
-            );
-        </script>
-        
         <!-- Bootstrap JavaScript Libraries -->
         <script
             src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
@@ -193,5 +195,55 @@
             integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
             crossorigin="anonymous"
         ></script>
+        <!-- Handlebars -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js" integrity="sha512-E1dSFxg+wsfJ4HKjutk/WaCzK7S2wv1POn1RRPGh8ZK+ag9l244Vqxji3r6wgz9YBf6+vhQEYJZpSjqWFPg9gg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <!-- My Scipt -->
+        <script src="js/21810018.js"></script>
+
+        <script id="gallery-categories-template" type="text/x-handlebars-template">
+            <div class="col">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link ps-0 disabled" href="#" aria-current="page"  onclick="loadData('gallery','gallery-template','gallery'); disablelink(this)"
+                            >Show all</a
+                        >
+                    </li>
+                    {{#each data}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="loadData('gallery/categories/{{id}}','gallery-template','gallery'); disablelink(this)">{{name}}</a>
+                    </li>
+                    {{/each}}
+                </ul>
+            </div>
+        </script>
+
+        <script id="gallery-template" type="text/x-handlebars-template">
+            {{#each data}}
+            <div class="col-3">
+                <img src="{{thumbpath}}" alt="{{name}}" class="img-thumbnail mb-3">
+            </div>
+            {{/each}}
+        </script>
+
+        <script>
+            const myModal = new bootstrap.Modal(
+                document.getElementById("modalLogin"),
+            );
+
+            document.getElementById('formLogin').onsubmit = function(e){
+                e.preventDefault();
+            }
+
+            loadData('gallery-categories','gallery-categories-template','gallery-categories');
+            loadData('gallery','gallery-template','gallery');
+
+            function disablelink(link){
+                let links = document.querySelectorAll('#gallery-categories a');
+                for (let i =0; i< links.length; i++){
+                    links[i].classList.remove('disabled');
+                }
+                link.classList.toggle('disabled')
+            }
+        </script>
     </body>
 </html>

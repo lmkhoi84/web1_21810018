@@ -111,6 +111,18 @@ h1 {
     border-color: rgba(0, 0, 0, 0.5) !important;
 }
 
+#our-visions a{
+    text-decoration: none;
+}
+
+#about-us-summary p{
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.text-decoration-none{
+    text-decoration: none;
+}
+
 /* news */
 #news .date{
     background-color: var(--web1-green);
@@ -127,7 +139,7 @@ footer{
     color: white;
     font-family: 'Changa One',cursive;
     display: block;
-    padding: 0 3rem;
+    padding: 0 2rem;
 }
 #menu-footer a.active{
     color: var(--web1-pink);
@@ -147,4 +159,24 @@ footer{
 #testimonials .col{
     background: url('../images/quot.png') left top no-repeat;
     padding-left: 3rem;
+}
+
+#testimonials a{
+    text-decoration: none;
+}
+
+/* our team */
+#our-team a{
+    text-decoration: none;
+}
+
+#our-team img{
+    width: 100%;
+}
+
+/* blogs-categories */
+#blogs-categories li{
+    list-style-type: none;
+    background: url('../images/marker1.png') left 0.2rem no-repeat;
+    padding: 0 0 0.75rem 1.5rem;
 }

@@ -5,12 +5,10 @@ async function loadData(request,templateId,viewId){
     const data = await response.json();
     //console.log(data);
 
-    var source = document.getElementById(templateId).innerHTML;
-    var template = Handlebars.compile(source);
+    let source = document.getElementById(templateId).innerHTML;
+    let template = Handlebars.compile(source);
     //var context = {data : data};
-    var view = document.getElementById(viewId);
+    let view = document.getElementById(viewId);
     view.innerHTML = template({data:data});
-
-
     //console.log(html);
 }
