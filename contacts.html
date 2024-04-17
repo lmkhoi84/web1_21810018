@@ -269,21 +269,22 @@
 
             function onSubmit(e) {
                 e.preventDefault();
-                grecaptcha.enterprise.ready(async () => {
-                    const token = await grecaptcha.enterprise.execute('6LeR9bwpAAAAAHU-oncHFpRc-uBWQN3zxQrVANQ-', {action: 'submit'});
-                    let response = await fetch('verify.php',{
+                grecaptcha.enterprise.ready(function(){
+                    grecaptcha.enterprise.execute('6LeR9bwpAAAAAHU-oncHFpRc-uBWQN3zxQrVANQ-', {action: 'submit'}).then(async function(token){
+                        let response = await fetch('verify.php',{
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                             'Accept': 'application/json'
                         },
                         body: JSON.stringify({'g-token': token})
+                        });
+                        if (response.status == 200){
+                            sendMail();
+                        }else{
+                            document.getElementById('alert').innerHTML = 'Error: Can not verify RECAPTCHA';
+                        }
                     });
-                    if (response.status == 200){
-                        sendMail();
-                    }else{
-                        document.getElementById('alert').innerHTML = 'Error: Can not verify RECAPTCHA';
-                    }
               });
             }
 
