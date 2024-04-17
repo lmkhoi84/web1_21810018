@@ -180,3 +180,14 @@ footer{
     background: url('../images/marker1.png') left 0.2rem no-repeat;
     padding: 0 0 0.75rem 1.5rem;
 }
+
+/* Contacts */
+#map{
+    height: 400px;
+    width: 100%;
+}
+
+.btn-primary{
+    background-color: var(--web1-blue) !important;
+    border: none;
+}
