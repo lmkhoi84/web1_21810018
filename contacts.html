@@ -269,7 +269,7 @@
                 e.preventDefault();
                 grecaptcha.enterprise.ready(function(){
                     grecaptcha.enterprise.execute('6Ldr8b0pAAAAACR1_Ohg2WMyL3iWOrbH_x0l5z0L', {action: 'submit'}).then(async function(token){
-                        let response = await fetch('api/verify.php',{
+                        let response = await fetch('verify.php',{
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
