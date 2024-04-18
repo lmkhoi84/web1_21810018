@@ -73,16 +73,9 @@
                                 <a class="nav-link linkLogout" href="#" onclick="logout()" style="display: none;">Logout</a>
                             </li>
                         </ul>
-                        <form class="d-flex my-2 my-lg-0 border rounded-pill" id="formSearch">
-                            <input
-                                class="form-control ms-3 border-0"
-                                type="text"
-                                placeholder="Search"
-                            />
-                            <button
-                                class="btn my-2 my-sm-0 border-0"
-                                type="submit"
-                            >
+                        <form class="d-flex my-2 my-lg-0 border rounded-pill" id="formSearch" method="GET" action="search.html">
+                            <input class="form-control ms-3 border-0" type="text" placeholder="Search" name="keyword" id="keyword" required/>
+                            <button class="btn my-2 my-sm-0 border-0" type="submit">
                             <i class="fa-solid fa-magnifying-glass"></i>
                             </button>
                         </form>
@@ -256,9 +249,10 @@
             </div>
             
 
-            <div class="py-3">
+            <div class="py-3" id="leave-comment">
                 <h3>Leave your comment</h3>
-                <form action="#" method="post" class="text-black-50">
+                <form action="#" method="post" class="text-black-50" onsubmit="addComment(event)">
+                    <input type="hidden" name="blogId" id="blogId" value="{{id}}">
                     <div class="row">
                         <div class="col-4">
                             <div>
@@ -269,8 +263,8 @@
                         </div>
                         <div class="col-4">
                             <div>
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" name="email" id="email" placeholder="Enter your email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"/>
+                                <label for="email" class="form-label">Email (Required)</label>
+                                <input type="email" class="form-control" name="email" id="email" placeholder="Enter your email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required/>
                             </div>
                         </div>
                     </div>
@@ -293,11 +287,12 @@
                             <button type="submit" class="btn btn-link text-decoration-none py-0">Submit Comment</button>
                         </div>
                     </div>
+                    <div class="text-center" id="responseMessage"></div>
                 </form>
             </div>
 
             <a id="comments"></a>
-            <div class="bg-dark text-white-50 py-3">
+            <div class="bg-dark text-white-50 py-2">
                 COMMENTS ({{comments.length}})
             </div>
 
@@ -315,6 +310,11 @@
 
         <script>
             checkLogin();
+
+            const myModal = new bootstrap.Modal(
+                document.getElementById("modalLogin"),
+            );
+
             Handlebars.registerHelper('formatDate', function(date){
                 let formatDate = new Date(date);
                 let options = {
@@ -341,17 +341,48 @@
                 //console.log(html);
             }
 
-            const myModal = new bootstrap.Modal(
-                document.getElementById("modalLogin"),
-            );
-
             loadBlogs('blogs');
             loadData('blogs-categories','blogs-categories-template','blogs-categories')
 
             async function loadBlogDetails(blogId,gotoComments = false){
                 await loadData(`blogs/${blogId}`,'detail-template','blogs');
+                checkLogin();
                 if (gotoComments){
                     window.location.href = '#comments';
+                }
+            }
+
+            async function addComment(e){
+                e.preventDefault();
+                let token = localStorage.getItem('token');
+                let postData = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    comment: document.getElementById('message').value,
+                    blogId: document.getElementById('blogId').value,
+                    agree: (document.getElementById('agree').value == 1)
+                }
+                let responseMessage = document.getElementById('responseMessage');
+                try {
+                    let response = await fetch(`${AUTHENTICATE_API}/comment`,{
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'Authorization': 'Bearer ' + token
+                        },
+                        body: JSON.stringify(postData)
+                    });
+                    let result = response.json();
+                    if (response.status == 200){
+                        loadBlogDetails(postData.blogId,true);
+                    }else{
+                        throw new Error(result.message);
+                    }
+                } catch (error) {
+                    //responseMessage.innerHTML = result.message; undefined
+                    responseMessage.innerHTML = error;
+                    responseMessage.className = 'text-danger';
                 }
             }
         </script>
