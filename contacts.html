@@ -147,14 +147,20 @@
                             <label for="message" class="form-label">Message *</label>
                             <textarea class="form-control" name="message" id="message" cols="30" required></textarea>
                         </div>
-                        <div class="text-end">
-                            <div class="form-check form-check-inline mx-0">
-                                <label class="form-check-label" for="copy">Send copy to yourself</label>
-                                <input type="checkbox" id="copy" value="1" class="ms-1"/>
-                                <button type="submit" class="btn btn-sm btn-primary ms-3">Send Email to Us</button>
+                        <div class="row">
+                            <div class="col">
+                                <div id="alert" class="text-danger text-start"></div>
+                            </div>
+                            <div class="col">
+                                <div class="text-end">
+                                    <div class="form-check form-check-inline mx-0">
+                                        <label class="form-check-label" for="copy">Send copy to yourself</label>
+                                        <input type="checkbox" id="copy" value="1" class="ms-1"/>
+                                        <button type="submit" class="btn btn-sm btn-primary ms-3">Send Email to Us</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div id="alert" class="text-danger text-center"></div>
                     </form>
                 </div>
             </section>
@@ -267,7 +273,7 @@
 
             function onSubmit(e) {
                 e.preventDefault();
-                
+
                 grecaptcha.enterprise.ready(function(){
                     grecaptcha.enterprise.execute('6LdQbr4pAAAAAMqXXEumloUqOVoKzl-f2gbB1Xv8', {action: 'submit'}).then(async function(token){
                         let response = await fetch('verify.php',{
@@ -282,16 +288,19 @@
                         if (response.status == 200){
                             sendMail();
                         }else{
-                            document.getElementById('alert').innerHTML = 'Error: Can not verify RECAPTCHA !';
+                            let alert = document.getElementById('alert');
+                            alert.innerHTML = 'Error: Can not verify RECAPTCHA !';
+                            alert.classList.replace('text-success','text-danger');
                         }
                     });
               });
             }
 
             function sendMail(){
-                document.getElementById('alert').innerHTML = 'OK';
+                let alert = document.getElementById('alert');
+                alert.innerHTML = 'Thanks for your message !';
+                alert.classList.replace('text-danger','text-success');
             }
-
         </script>
 
     </body>
