@@ -271,7 +271,7 @@
                     <img src="{{imagepath}}" alt="{{name}}" onmouseover="setActiveImagepath(this,'{{imagepath}}')" onmouseout="setActiveImagepath(this,'{{imagepath}}',false)">
                     <h3>{{name}}</h3>
                     <p class="text-black-50">{{summary}}</p>
-                    <a href="#" onclick="loadData('products/{{id}}','detail-template','content')" class="btn btn-link readmore">Read more</a>
+                    <a href="?request=products/{{id}}" class="btn btn-link readmore">Read more</a>
                 </div>
                 {{/each}}
             </div>
@@ -284,7 +284,7 @@
                     <div class="col-lg-4 col-md-4 col-sm-12">
                         <div class="float-start me-3">
                             <div class="date text-white text-center rounded-4 py-1"><h3>{{date}}</h3></div>
-                            <a href="#" onclick="loadData('news/{{id}}','detail-template','content')" class="btn btn-link readmore ps-0">Read more</a>
+                            <a href="?request=news/{{id}}" class="btn btn-link readmore ps-0">Read more</a>
                         </div>
                         <div>
                             <h3>{{name}}</h3>
@@ -295,7 +295,7 @@
                 </div>
         </script>
 
-        <script id="detail-template" type="text/x-handlebars-template">
+        <script id="details-template" type="text/x-handlebars-template">
             <section class="container-fluid" id="banner-small"></section>
             {{#each data}}
             <section class="container py-5">
@@ -308,8 +308,14 @@
         
         <script>
             checkLogin();
-            loadData('products','products-template','products');
-            loadData('news','news-template','news');
+            let searchParams = new URLSearchParams(location.search);
+            let request = searchParams.get('request');
+            if (request){
+                loadData(request,'details-template','content');
+            }else{
+                loadData('products','products-template','products');
+                loadData('news','news-template','news');
+            }
 
             function setActiveImagepath(img,imagepath,isActive = true){
                 if (isActive){
