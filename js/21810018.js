@@ -6,12 +6,29 @@ async function loadData(request,templateId,viewId){
     const data = await response.json();
     //console.log(data);
 
-    let source = document.getElementById(templateId).innerHTML;
-    let template = Handlebars.compile(source);
+    // let source = document.getElementById(templateId).innerHTML;
+    // let template = Handlebars.compile(source);
+    let template = Handlebars.templates[`${templateId}`];
     //var context = {data : data};
     let view = document.getElementById(viewId);
     view.innerHTML = template({data:data});
     //console.log(html);
+}
+
+async function loadDetails(request,templateId,viewId){
+    document.getElementById('main').style.display = 'none';
+    document.getElementById('content').style.display = 'block';
+    await loadData(request, templateId, viewId);
+    history.replaceState({request,templateId,viewId}, null, location.href);
+}
+
+window.onpopstate = (event) =>{
+    let state = event.state;
+    if (state && state.loadPage){
+        loadPage();
+    }else if (state && state.request){
+        loadDetails(state.request, state.templateId, state.viewId);
+    }
 }
 
 async  function getAuthenticateToken(username,password){

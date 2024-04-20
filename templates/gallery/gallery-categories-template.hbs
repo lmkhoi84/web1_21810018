@@ -1,0 +1,14 @@
+<div class="col">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link ps-0 disabled" href="#" aria-current="page"  onclick="loadData('gallery','gallery-template','gallery'); disablelink(this)"
+                            >Show all</a
+                        >
+                    </li>
+                    {{#each data}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="loadData('gallery/categories/{{id}}','gallery-template','gallery'); disablelink(this)">{{name}}</a>
+                    </li>
+                    {{/each}}
+                </ul>
+            </div>
